@@ -89,6 +89,7 @@ void CAN2_Init( void )
 //  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);	
 //  HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);	
 //}
+
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
 {
 	static CAN_RxPacketTypeDef packet;
