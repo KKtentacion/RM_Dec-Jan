@@ -46,18 +46,20 @@ static void DM_Enable()
 static void DM_Init()
 {        
 //Expend Progress	
-  MIT_CtrlMotor2(0x01,3.14,0.2,1.5,0.5,1);
+  MIT_CtrlMotor2(0x01,3.14,0.2,1,0.5,1);
   HAL_Delay(2000);
-  MIT_CtrlMotor(0x01,-1.51,0.2,1.5,0.5,1);
+  MIT_CtrlMotor(0x01,-1.51,0.2,1,0.5,1);
   HAL_Delay(2000);
-  MIT_CtrlMotor2(0x03,0.8,0.2,1.5,0.5,1);
+  MIT_CtrlMotor2(0x03,0.8,0.2,1,0.5,1);
   HAL_Delay(2000);
-  MIT_CtrlMotor2(0x02,-5.3,0.2,1.5,0.5,1);
+  MIT_CtrlMotor2(0x02,-5.3,0.2,1,0.5,1);
 	
 	HAL_Delay(2000);
 		
 //Recycle Progress
-	  MIT_CtrlMotor2(0x02,4.7,0.2,1.5,0.5,1);
+	  MIT_CtrlMotor2(0x01,3.14,0.2,1,0.5,1);
+	  HAL_Delay(2000);
+	  MIT_CtrlMotor2(0x02,4.7,0.2,1,0.5,1);
 		HAL_Delay(2000);
-		MIT_CtrlMotor2(0x03,-2.7,0.2,1.5,0.5,1);
+		MIT_CtrlMotor2(0x03,-3.5,0.2,1,0.5,1);
 }
