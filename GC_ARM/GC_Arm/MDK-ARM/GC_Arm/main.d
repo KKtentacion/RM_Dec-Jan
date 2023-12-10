@@ -27,6 +27,8 @@ gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
+gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 gc_arm\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
@@ -48,11 +50,12 @@ gc_arm\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 gc_arm\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 gc_arm\main.o: ../Inc/can.h
 gc_arm\main.o: ../Inc/dma.h
+gc_arm\main.o: ../Inc/i2c.h
 gc_arm\main.o: ../Inc/tim.h
 gc_arm\main.o: ../Inc/usart.h
 gc_arm\main.o: ../Inc/gpio.h
-gc_arm\main.o: ./PotocaLayer/rc_potocal.h
-gc_arm\main.o: ./Drivelayer/struct_typedef.h
-gc_arm\main.o: ./Drivelayer/drv_can.h
-gc_arm\main.o: ./AlgorithmLayer/pid.h
-gc_arm\main.o: ./Drivelayer/drv_usart.h
+gc_arm\main.o: ../Inc/rc_potocal.h
+gc_arm\main.o: ../Inc/struct_typedef.h
+gc_arm\main.o: ../Inc/drv_can.h
+gc_arm\main.o: ../Inc/pid.h
+gc_arm\main.o: ../Inc/drv_usart.h

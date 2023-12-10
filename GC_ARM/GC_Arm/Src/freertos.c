@@ -155,6 +155,16 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_StartTask02 */
+//void StartTask02(void const * argument)
+//{
+//  /* USER CODE BEGIN StartTask02 */
+//  /* Infinite loop */
+//  for(;;)
+//  {
+//    osDelay(1);
+//  }
+//  /* USER CODE END StartTask02 */
+//}
 
 /* USER CODE BEGIN Header_StartTask03 */
 /**

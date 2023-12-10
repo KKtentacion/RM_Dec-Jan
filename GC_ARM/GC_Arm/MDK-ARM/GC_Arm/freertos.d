@@ -36,6 +36,8 @@ gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
+gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 gc_arm\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
@@ -46,7 +48,7 @@ gc_arm\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 gc_arm\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 gc_arm\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 gc_arm\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-gc_arm\freertos.o: ./PotocaLayer/rc_potocal.h
-gc_arm\freertos.o: ./Drivelayer/struct_typedef.h
-gc_arm\freertos.o: ./Drivelayer/drv_can.h
-gc_arm\freertos.o: ./AlgorithmLayer/pid.h
+gc_arm\freertos.o: ../Inc/rc_potocal.h
+gc_arm\freertos.o: ../Inc/struct_typedef.h
+gc_arm\freertos.o: ../Inc/drv_can.h
+gc_arm\freertos.o: ../Inc/pid.h

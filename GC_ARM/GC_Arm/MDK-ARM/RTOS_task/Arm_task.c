@@ -25,7 +25,7 @@ void StartTask02(void const * argument)
   { 
     //MIT_CtrlMotor(0x01,-1.51,0.5,2,0.5,1);
     //MIT_CtrlMotor2(0x03,0.8,0.5,2,0.5,1);
-    // MIT_CtrlMotor2(0x02,-5.3,0.2,1.5,0.5,1);
+    //MIT_CtrlMotor2(0x02,-5.3,0.2,1.5,0.5,1);
     //MIT_CtrlMotor2(0x01,3.14,0.2,1.5,0.5,1);
     osDelay(1);
   }

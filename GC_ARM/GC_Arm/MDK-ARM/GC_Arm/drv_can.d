@@ -1,7 +1,7 @@
 gc_arm\drv_can.o: Drivelayer\drv_can.c
-gc_arm\drv_can.o: Drivelayer\drv_can.h
-gc_arm\drv_can.o: Drivelayer\struct_typedef.h
-gc_arm\drv_can.o: ./AlgorithmLayer/pid.h
+gc_arm\drv_can.o: ../Inc/drv_can.h
+gc_arm\drv_can.o: ../Inc/struct_typedef.h
+gc_arm\drv_can.o: ../Inc/pid.h
 gc_arm\drv_can.o: ../Inc/main.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gc_arm\drv_can.o: ../Inc/stm32f4xx_hal_conf.h
@@ -30,9 +30,11 @@ gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
+gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 gc_arm\drv_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-gc_arm\drv_can.o: ./PotocaLayer/rc_potocal.h
+gc_arm\drv_can.o: ../Inc/rc_potocal.h

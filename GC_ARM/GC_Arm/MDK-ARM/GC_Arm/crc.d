@@ -1,6 +1,6 @@
 gc_arm\crc.o: AlgorithmLayer\CRC.c
-gc_arm\crc.o: AlgorithmLayer\CRC.h
-gc_arm\crc.o: ./Drivelayer/struct_typedef.h
+gc_arm\crc.o: ../Inc/CRC.h
+gc_arm\crc.o: ../Inc/struct_typedef.h
 gc_arm\crc.o: ../Inc/main.h
 gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gc_arm\crc.o: ../Inc/stm32f4xx_hal_conf.h
@@ -29,6 +29,8 @@ gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
+gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 gc_arm\crc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
