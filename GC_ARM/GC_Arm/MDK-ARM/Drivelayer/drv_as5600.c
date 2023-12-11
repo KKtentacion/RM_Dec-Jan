@@ -6,7 +6,8 @@
 static float angle_data_prev; //????
 static float full_rotation_offset; //??????
 
-void drv_as5600Init(void) {
+void drv_as5600Init(void)
+{
   /* init i2c interface */
   
   /* init var */
@@ -14,7 +15,8 @@ void drv_as5600Init(void) {
   angle_data_prev = drv_as5600GetRawAngle();
 }
 
-static int i2cWrite(uint8_t dev_addr, uint8_t *pData, uint32_t count) {
+static int i2cWrite(uint8_t dev_addr, uint8_t *pData, uint32_t count) 
+{
   int status;
   int i2c_time_out = I2C_TIME_OUT_BASE + count * I2C_TIME_OUT_BYTE;
   
@@ -22,7 +24,8 @@ static int i2cWrite(uint8_t dev_addr, uint8_t *pData, uint32_t count) {
   return status;
 }
 
-static int i2cRead(uint8_t dev_addr, uint8_t *pData, uint32_t count) {
+static int i2cRead(uint8_t dev_addr, uint8_t *pData, uint32_t count)
+{
   int status;
   int i2c_time_out = I2C_TIME_OUT_BASE + count * I2C_TIME_OUT_BYTE;
   
@@ -30,7 +33,8 @@ static int i2cRead(uint8_t dev_addr, uint8_t *pData, uint32_t count) {
   return status;
 }
 
-uint16_t drv_as5600GetRawAngle(void) {
+uint16_t drv_as5600GetRawAngle(void)
+{
   uint16_t raw_angle;
   uint8_t buffer[2] = {0};
   uint8_t raw_angle_register = AS5600_RAW_ANGLE_REGISTER;
@@ -41,7 +45,8 @@ uint16_t drv_as5600GetRawAngle(void) {
   return raw_angle;
 }
 
-float drv_as5600GetAngle(void) {
+float drv_as5600GetAngle(void) 
+{
   float angle_data = drv_as5600GetRawAngle();
   
   float d_angle = angle_data - angle_data_prev;

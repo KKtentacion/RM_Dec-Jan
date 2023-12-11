@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "rc_potocal.h"
 #include "PID.h"
+#include "drv_as5600.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -140,9 +141,14 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
+	drv_as5600Init();
+	uint16_t angle_raw;
+	uint16_t delta_angle;
   /* Infinite loop */
   for(;;)
   {
+		angle_raw=drv_as5600GetRawAngle();
+		delta_angle=drv_as5600GetAngle();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
