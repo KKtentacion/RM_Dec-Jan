@@ -53,6 +53,7 @@ osThreadId defaultTaskHandle;
 osThreadId Arm_TaskHandle;
 osThreadId sucker_TaskHandle;
 osThreadId remote_taskHandle;
+extern float angle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -141,7 +142,6 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-	float angle;
   /* Infinite loop */
   for(;;)
   {

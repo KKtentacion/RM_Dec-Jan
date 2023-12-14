@@ -1,6 +1,8 @@
 #include "drv_as5600.h"
 #include "i2c.h"
 
+float data=0,degress =0,angle;
+
 /**************************************************************
  * 函数名：uint8_t readOneByte(uint8_t in_adr)
  * 函数功能：给定地址读一个字节
@@ -66,7 +68,7 @@ uint8_t detectMagnet(void)
 **************************************************************/
 float Programe_Run(void)
 {
-	float data=0,degress =400;
+	degress=400;
 	if(detectMagnet())
 	{
 		data =readTwoBytes(_raw_ang_hi, _raw_ang_lo);
