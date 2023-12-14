@@ -141,14 +141,11 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-	drv_as5600Init();
-	uint16_t angle_raw;
-	uint16_t delta_angle;
+	float angle;
   /* Infinite loop */
   for(;;)
   {
-		angle_raw=drv_as5600GetRawAngle();
-		delta_angle=drv_as5600GetAngle();
+		angle=Programe_Run();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -164,11 +161,11 @@ void StartDefaultTask(void const * argument)
 //void StartTask02(void const * argument)
 //{
 //  /* USER CODE BEGIN StartTask02 */
-//  /* Infinite loop */
-//  for(;;)
-//  {
-//    osDelay(1);
-//  }
+//////  /* Infinite loop */
+//////  for(;;)
+//////  {
+//////    osDelay(1);
+//////  }
 //  /* USER CODE END StartTask02 */
 //}
 

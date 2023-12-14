@@ -1,6 +1,5 @@
 gc_arm\drv_as5600.o: Drivelayer\drv_as5600.c
 gc_arm\drv_as5600.o: ../Inc/drv_as5600.h
-gc_arm\drv_as5600.o: ../Inc/i2c.h
 gc_arm\drv_as5600.o: ../Inc/main.h
 gc_arm\drv_as5600.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gc_arm\drv_as5600.o: ../Inc/stm32f4xx_hal_conf.h
@@ -36,3 +35,4 @@ gc_arm\drv_as5600.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 gc_arm\drv_as5600.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 gc_arm\drv_as5600.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 gc_arm\drv_as5600.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+gc_arm\drv_as5600.o: ../Inc/i2c.h

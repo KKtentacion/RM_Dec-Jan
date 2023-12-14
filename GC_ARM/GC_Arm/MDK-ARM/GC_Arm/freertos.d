@@ -53,4 +53,3 @@ gc_arm\freertos.o: ../Inc/struct_typedef.h
 gc_arm\freertos.o: ../Inc/drv_can.h
 gc_arm\freertos.o: ../Inc/pid.h
 gc_arm\freertos.o: ../Inc/drv_as5600.h
-gc_arm\freertos.o: ../Inc/i2c.h

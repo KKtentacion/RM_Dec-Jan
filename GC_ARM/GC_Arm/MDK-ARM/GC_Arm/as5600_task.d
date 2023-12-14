@@ -1,6 +1,5 @@
 gc_arm\as5600_task.o: RTOS_task\as5600_task.c
 gc_arm\as5600_task.o: ../Inc/drv_as5600.h
-gc_arm\as5600_task.o: ../Inc/i2c.h
 gc_arm\as5600_task.o: ../Inc/main.h
 gc_arm\as5600_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gc_arm\as5600_task.o: ../Inc/stm32f4xx_hal_conf.h

@@ -1,60 +1,82 @@
 #include "drv_as5600.h"
+#include "i2c.h"
 
-#define abs(x) ((x)>0?(x):-(x))
-#define _2PI 6.28318530718
-
-static float angle_data_prev; //????
-static float full_rotation_offset; //??????
-
-void drv_as5600Init(void)
+/**************************************************************
+ * 函数名：uint8_t readOneByte(uint8_t in_adr)
+ * 函数功能：给定地址读一个字节
+ * 输入参数：in_adr 待读数据的地址
+ * 输出参数：retVal读出的数据
+ * 返回值：无
+**************************************************************/
+uint8_t readOneByte(uint8_t in_adr)//读一个字节函数，从5600的指定寄存器提取一个8位值
 {
-  /* init i2c interface */
-  
-  /* init var */
-  full_rotation_offset = 0;
-  angle_data_prev = drv_as5600GetRawAngle();
+	uint8_t a3=0x00;
+	HAL_I2C_Mem_Read(&hi2c2, I2C_ADDRESS, (uint16_t)in_adr, I2C_MEMADD_SIZE_8BIT, &a3, 1, 0xff);
+	return a3;
 }
 
-static int i2cWrite(uint8_t dev_addr, uint8_t *pData, uint32_t count) 
+/**************************************************************
+ * 函数名：uint16_t readTwoBytes(uint8_t h_adr, uint8_t l_adr)
+ * 函数功能：给定两个地址 各自读出一个字节
+ * 输入参数：in_adr 待读高位数据的地址 in_adr_lo待读低位数据的地址
+ * 输出参数：retVal读出的数据
+ * 返回值：无
+**************************************************************/
+uint16_t readTwoBytes(uint8_t h_adr , uint8_t l_adr)
 {
-  int status;
-  int i2c_time_out = I2C_TIME_OUT_BASE + count * I2C_TIME_OUT_BYTE;
-  
-  status = HAL_I2C_Master_Transmit(&AS5600_I2C_HANDLE, dev_addr, pData, count, i2c_time_out);
-  return status;
+	uint16_t retVal = 0;
+  uint8_t low=0,high=0;
+	/* Read High Byte */ 
+	high = readOneByte(h_adr);
+	high = high & 0x0f;
+	/* Read Low Byte */
+	low = readOneByte(l_adr);	
+	//将两个八位 合成一个16位
+	retVal = high << 8;
+	retVal = (retVal | low) ;
+	
+	return retVal;//输出一个16位
 }
 
-static int i2cRead(uint8_t dev_addr, uint8_t *pData, uint32_t count)
+
+/**************************************************************
+ * 函数名：uint8_t detectMagnet(void)
+ * 函数功能：判断有无磁铁
+ * 输入参数：无
+ * 输出参数：1有磁铁 0无磁铁
+ * 返回值：无
+**************************************************************/
+uint8_t detectMagnet(void)
 {
-  int status;
-  int i2c_time_out = I2C_TIME_OUT_BASE + count * I2C_TIME_OUT_BYTE;
+  uint8_t retVal = 0;
+  retVal = readOneByte(_stat);
   
-  status = HAL_I2C_Master_Receive(&AS5600_I2C_HANDLE, (dev_addr | 1), pData, count, i2c_time_out);
-  return status;
+  if(retVal & 0x20)
+    retVal = 1; 
+  
+  return retVal;
 }
 
-uint16_t drv_as5600GetRawAngle(void)
+/**************************************************************
+ * 函数名：float Programe_Run(void)
+ * 函数功能：读取传感器角度值
+ * 输入参数：无
+ * 输出参数：传感器角度值  400无磁铁
+ * 返回值：无
+**************************************************************/
+float Programe_Run(void)
 {
-  uint16_t raw_angle;
-  uint8_t buffer[2] = {0};
-  uint8_t raw_angle_register = AS5600_RAW_ANGLE_REGISTER;
-  
-  i2cWrite(AS5600_ADDR, &raw_angle_register, 1);
-  i2cRead(AS5600_ADDR, buffer, 2);
-  raw_angle = ((uint16_t)buffer[0] << 8) | (uint16_t)buffer[1];
-  return raw_angle;
-}
-
-float drv_as5600GetAngle(void) 
-{
-  float angle_data = drv_as5600GetRawAngle();
-  
-  float d_angle = angle_data - angle_data_prev;
-  if(abs(d_angle) > (0.8 * AS5600_RESOLUTION)) {
-    full_rotation_offset += (d_angle > 0 ? -_2PI : _2PI);
-  }
-  angle_data_prev = angle_data;
-  
-  return (full_rotation_offset + (angle_data / (float)AS5600_RESOLUTION)*_2PI);
+	float data=0,degress =400;
+	if(detectMagnet())
+	{
+		data =readTwoBytes(_raw_ang_hi, _raw_ang_lo);
+		/* Raw data reports 0 - 4095 segments, which is 0.087 of a degree */ 
+		degress = data*360/4095;
+		if(degress < 0)
+		{
+			degress = degress + 360.0f;
+		}
+	}
+	return degress;
 }
 

@@ -112,6 +112,10 @@ extern float yuntai_step;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Vcc_as_Pin GPIO_PIN_12
+#define Vcc_as_GPIO_Port GPIOB
+#define GND_as_Pin GPIO_PIN_13
+#define GND_as_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
