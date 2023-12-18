@@ -1,7 +1,7 @@
 #include "PID.h"
-int test0=0;
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
+
 void pid_init(pid_struct_t *pid,
               float kp,
               float ki,
@@ -15,6 +15,7 @@ void pid_init(pid_struct_t *pid,
   pid->i_max   = i_max;
   pid->out_max = out_max;
 }
+
 float pid_calc(pid_struct_t *pid, float ref, float fdb)//ref是目标值,fdb是电机解码的速度返回值
 {
   pid->ref = ref;
@@ -52,26 +53,7 @@ void set_motor_voltage(uint8_t id_range, int32_t v1, int16_t v2, int16_t v3, int
 //  tx_data[7] =   (v4)&0xff;
   HAL_CAN_AddTxMessage(&hcan1, &tx_header, tx_data,(uint32_t*)CAN_TX_MAILBOX0);
 }
-//void set_motor_voltage(uint8_t id_range, int16_t v1, int16_t v2, int16_t v3, int16_t v4)
-//{
-//  CAN_TxHeaderTypeDef tx_header;
-//  uint8_t             tx_data[8];
-//    
-//  tx_header.StdId = (id_range == 0)?(0x201):(0x2ff);//如果id_range==0则等于0x1ff,id_range==1则等于0x2ff（ID号）
-//  tx_header.IDE   = CAN_ID_STD;//标准帧
-//  tx_header.RTR   = CAN_RTR_DATA;//数据帧
-//  tx_header.DLC   = 4;		//发送数据长度（字节）
 
-//	tx_data[0] = (v1>>8)&0xff;	//先发di八位		
-//  tx_data[1] = (v1)&0xff;
-//  tx_data[2] = (v2>>8)&0xff;
-//  tx_data[3] = (v2)&0xff;
-////  tx_data[4] = (v3>>8)&0xff;
-////  tx_data[5] =    (v3)&0xff;
-////  tx_data[6] = (v4>>8)&0xff;
-////  tx_data[7] =   (v4)&0xff;
-//  HAL_CAN_AddTxMessage(&hcan1, &tx_header, tx_data,(uint32_t*)CAN_TX_MAILBOX0);
-//}
 /**
  * @brief  电机命令
  * @param  hcan   CAN的句柄
@@ -105,6 +87,7 @@ void set_motor_voltage(uint8_t id_range, int32_t v1, int16_t v2, int16_t v3, int
     }
     }
 }
+ 
  void Enable_Ctrl2(uint16_t ID, uint8_t data0, uint8_t data1,uint8_t data2, uint8_t data3, uint8_t data4,uint8_t data5,uint8_t data6,uint8_t data7)
  {
     static CAN_TxPacketTypeDef packet;
@@ -132,6 +115,7 @@ void set_motor_voltage(uint8_t id_range, int32_t v1, int16_t v2, int16_t v3, int
     }
     }
 }
+ 
 void set_motor_voltage_can_2(uint8_t id_range, int16_t v1, int16_t v2, int16_t v3, int16_t v4)
 {
   CAN_TxHeaderTypeDef tx_header;
@@ -152,6 +136,7 @@ void set_motor_voltage_can_2(uint8_t id_range, int16_t v1, int16_t v2, int16_t v
   tx_data[7] =    (v4)&0xff;
   HAL_CAN_AddTxMessage(&hcan2, &tx_header, tx_data,(uint32_t*)CAN_TX_MAILBOX0);
 }
+
 uint8_t CANx_SendStdData(CAN_HandleTypeDef* hcan,uint16_t ID,uint8_t *pData,uint16_t Len)
 {
   static CAN_TxHeaderTypeDef   Tx_Header;
@@ -173,6 +158,7 @@ uint8_t CANx_SendStdData(CAN_HandleTypeDef* hcan,uint16_t ID,uint8_t *pData,uint
     }
     return 0;
 }
+
 void Speed_CtrlMotor(uint16_t ID, float _vel)
 {
     static CAN_TxPacketTypeDef packet;
@@ -198,6 +184,7 @@ void Speed_CtrlMotor(uint16_t ID, float _vel)
     }
     }
 }
+
 void PosSpeed_CtrlMotor( uint16_t ID, float _pos, float _vel)
 {
     static CAN_TxPacketTypeDef packet;
@@ -228,6 +215,7 @@ void PosSpeed_CtrlMotor( uint16_t ID, float _pos, float _vel)
     }
     }
 }
+
 void MIT_CtrlMotor(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq)
 {
     static CAN_TxPacketTypeDef packet;
@@ -262,6 +250,7 @@ void MIT_CtrlMotor(uint16_t ID, float _pos, float _vel,float _KP, float _KD, flo
     }
     }
 }
+
 void MIT_CtrlMotor2(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq)
 {
     static CAN_TxPacketTypeDef packet;
@@ -296,6 +285,7 @@ void MIT_CtrlMotor2(uint16_t ID, float _pos, float _vel,float _KP, float _KD, fl
     }
     }
 }
+
 int float_to_uint(float x, float x_min, float x_max, int bits)
 { 
   float span = x_max - x_min;

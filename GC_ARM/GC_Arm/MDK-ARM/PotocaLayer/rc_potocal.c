@@ -2,6 +2,7 @@
 
 extern UART_HandleTypeDef huart1;
 
+
 // flag for keyboard
 uint16_t w_flag;
 uint16_t s_flag;
@@ -22,10 +23,28 @@ uint16_t c_flag;
 uint16_t v_flag;
 uint16_t b_flag;
 
-  uint8_t temp_remote[8];
- RC_ctrl_t rc_ctrl;
- #define RC_CH_VALUE_OFFSET      ((uint16_t)1024)
-   void USART3_rxDataHandler(uint8_t *rxBuf)
+static float increment=0.05;
+extern float Max_pos1_Can1;
+extern float Min_pos1_Can1;
+extern float Max_pos1_Can2;
+extern float Min_pos1_Can2;
+extern float Max_pos2_Can2;
+extern float Min_pos2_Can2;
+extern float Max_pos3_Can2;
+extern float Min_pos3_Can2;
+extern float Current_pos1_Can1;
+extern float Target_pos1_Can1;
+extern float Current_pos1_Can2;
+extern float Target_pos1_Can2;
+extern float Current_pos2_Can2;
+extern float Target_pos2_Can2;
+extern float Current_pos3_Can2;
+extern float Target_pos3_Can2;
+
+uint8_t temp_remote[8];
+RC_ctrl_t rc_ctrl;
+#define RC_CH_VALUE_OFFSET      ((uint16_t)1024)
+void USART3_rxDataHandler(uint8_t *rxBuf)
 {
     rc_ctrl.rc.ch[0] = (rxBuf[0] | (rxBuf[1] << 8)) & 0x07ff;        //!< Channel 0  中值为1024，最大值1684，最小值364，波动范围：660
     rc_ctrl.rc.ch[1] = (((rxBuf[1] >> 3)&0xff) | (rxBuf[2] << 5)) & 0x07ff; //!< Channel 1
@@ -70,4 +89,20 @@ uint16_t b_flag;
 		c_flag = rc_ctrl.key.v & (0x00 | 0x20 << 8);
 		v_flag = rc_ctrl.key.v & (0x00 | 0x40 << 8);
 		b_flag = rc_ctrl.key.v & (0x00 | 0x80 << 8);
+		
+		if(q_flag==1)
+		{
+			if(Current_pos1_Can1<=Max_pos1_Can1-increment&&Current_pos1_Can1>=Min_pos1_Can1+increment)
+			{
+				Target_pos1_Can1+=increment;
+			}
+		}
+		else if(a_flag==1)
+		{
+			if(Current_pos1_Can1<=Max_pos1_Can1-increment&&Current_pos1_Can1>=Min_pos1_Can1+increment)
+			{
+				Target_pos1_Can1+=increment;
+			}
+		}
 }
+

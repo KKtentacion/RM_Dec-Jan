@@ -55,6 +55,8 @@ uint8_t detectMagnet(void)
   
   if(retVal & 0x20)
     retVal = 1; 
+	else
+		degress=400;
   
   return retVal;
 }
@@ -68,7 +70,6 @@ uint8_t detectMagnet(void)
 **************************************************************/
 float Programe_Run(void)
 {
-	degress=400;
 	if(detectMagnet())
 	{
 		data =readTwoBytes(_raw_ang_hi, _raw_ang_lo);

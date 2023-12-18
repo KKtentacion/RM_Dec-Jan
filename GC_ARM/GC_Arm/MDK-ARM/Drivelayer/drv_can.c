@@ -5,7 +5,6 @@
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 extern RC_ctrl_t rc_ctrl;
-uint16_t can_cnt_1=0;
 extern uint16_t Up_ins_yaw;
 Motor_t MOTOR1_can1;
 Motor_t MOTOR2_can1;
@@ -13,6 +12,23 @@ Motor_t MOTOR3_can1;
 Motor_t MOTOR1_can2;
 Motor_t MOTOR2_can2;
 Motor_t MOTOR3_can2;
+int initflag=0;
+float Max_pos1_Can1=-0.79;
+float Min_pos1_Can1=-2.9;
+float Max_pos1_Can2=0;
+float Min_pos1_Can2=0;
+float Max_pos2_Can2=0;
+float Min_pos2_Can2=0;
+float Max_pos3_Can2=0;
+float Min_pos3_Can2=0;
+float Current_pos1_Can1;
+float Target_pos1_Can1;
+float Current_pos1_Can2;
+float Target_pos1_Can2;
+float Current_pos2_Can2;
+float Target_pos2_Can2;
+float Current_pos3_Can2;
+float Target_pos3_Can2;
 float uint_to_float(int x_int, float x_min, float x_max, int bits);
 void CAN1_Init(void)
 {
@@ -55,41 +71,6 @@ void CAN2_Init( void )
 	  HAL_CAN_Start(&hcan2);//启动can2
 }
 
-//void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)//接受中断回调函数
-//{
-//  CAN_RxHeaderTypeDef rx_header;
-//  uint8_t             rx_data[8];
-//  if(hcan->Instance == CAN1)
-//  {
-//    HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &rx_header, rx_data); //receive can1 data
-//		if ((rx_header.StdId >= FEEDBACK_ID_BASE)//201-207
-//   && (rx_header.StdId <  FEEDBACK_ID_BASE + MOTOR_MAX_NUM))                  // 判断标识符，标识符为0x200+ID
-//  {
-//    uint8_t index = rx_header.StdId - FEEDBACK_ID_BASE;                  // get motor index by can_id
-//    motor_info[index].rotor_angle    = ((rx_data[1] << 8) | rx_data[2]);
-//    motor_info[index].rotor_speed    = ((rx_data[3] << 4) | rx_data[4]>>4);
-//    motor_info[index].torque_current = (((rx_data[4] << 8) | rx_data[5])|0x0FFF);
-//    motor_info[index].temp           =   rx_data[6];
-//  }
-//  }
-//	 if(hcan->Instance == CAN2)
-//  {
-//    HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &rx_header, rx_data); //receive can2 data
-//		if ((rx_header.StdId >= FEEDBACK_ID_BASE)//201-207
-//   && (rx_header.StdId <  FEEDBACK_ID_BASE + MOTOR_MAX_NUM))                  // 判断标识符，标识符为0x200+ID
-//  {
-//    uint8_t index = rx_header.StdId - FEEDBACK_ID_BASE;                  // get motor index by can_id
-//    motor_info_can_2[index].rotor_angle    = ((rx_data[0] << 8) | rx_data[1]);
-//    motor_info_can_2[index].rotor_speed    = ((rx_data[2] << 8) | rx_data[3]);
-//    motor_info_can_2[index].torque_current = ((rx_data[4] << 8) | rx_data[5]);
-//    motor_info_can_2[index].temp           =   rx_data[6];
-
-//  }
-//  }
-//  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);	
-//  HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);	
-//}
-
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
 {
 	static CAN_RxPacketTypeDef packet;
@@ -104,8 +85,15 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
               MOTOR1_can1.v_int=(packet.payload[3]<<4)|(packet.payload[4]>>4);
               MOTOR1_can1.t_int=((packet.payload[4]&0xF)<<8)|packet.payload[5];
               MOTOR1_can1.position = uint_to_float(MOTOR1_can1.p_int, P_MIN, P_MAX, 16); 
+							Current_pos1_Can1=MOTOR1_can1.position;
 //              MOTOR1_t.velocity = uint_to_float(MOTOR1_t.v_int, V_MIN, V_MAX, 12);
 //              MOTOR1_t.torque = uint_to_float(MOTOR1_t.t_int, T_MIN, T_MAX, 12); 
+						 
+						 if(initflag==0)
+						 {
+							Target_pos1_Can1=Current_pos1_Can1;
+						 }
+						 
             }else if(packet.payload[0] == 0x02){  //接收MOTOR2数据
 							MOTOR2_can1.p_int=(packet.payload[1]<<8)|packet.payload[2];
               MOTOR2_can1.v_int=(packet.payload[3]<<4)|(packet.payload[4]>>4);

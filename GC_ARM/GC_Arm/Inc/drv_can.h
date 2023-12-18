@@ -6,13 +6,13 @@
 void CAN1_Init(void);
 void CAN2_Init( void );
 void can_remote(uint8_t sbus_buf[],uint8_t can_send_id);
+void set_motor_current_can2(uint8_t id_range, int16_t v1, int16_t v2, int16_t v3, int16_t v4);
 extern Motor_t MOTOR1_can1;
 extern Motor_t MOTOR2_can1;
 extern Motor_t MOTOR3_can1;
 extern Motor_t MOTOR1_can2;
 extern Motor_t MOTOR2_can2;
 extern Motor_t MOTOR3_can2;
-void set_motor_current_can2(uint8_t id_range, int16_t v1, int16_t v2, int16_t v3, int16_t v4);
 #define P_MIN -12.5		//位置最小值
 #define P_MAX 12.5		//位置最大值
 #define V_MIN -45			//速度最小值
