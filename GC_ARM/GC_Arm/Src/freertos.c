@@ -47,13 +47,12 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
+extern float angle;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId Arm_TaskHandle;
 osThreadId sucker_TaskHandle;
 osThreadId remote_taskHandle;
-extern float angle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -158,16 +157,16 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_StartTask02 */
-//void StartTask02(void const * argument)
-//{
-//  /* USER CODE BEGIN StartTask02 */
-//////  /* Infinite loop */
-//////  for(;;)
-//////  {
-//////    osDelay(1);
-//////  }
-//  /* USER CODE END StartTask02 */
-//}
+void StartTask02(void const * argument)
+{
+  /* USER CODE BEGIN StartTask02 */
+////////  /* Infinite loop */
+////////  for(;;)
+////////  {
+////////    osDelay(1);
+////////  }
+  /* USER CODE END StartTask02 */
+}
 
 /* USER CODE BEGIN Header_StartTask03 */
 /**

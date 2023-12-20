@@ -39,7 +39,7 @@ void StartTask02(void const * argument)
 //  DM_Init();
   for(;;)
   {
-		
+		MIT_CtrlMotor(0x01,Target_pos1_Can1,0.2,1,0.5,1);
     osDelay(1);
   }
   /* USER CODE END StartTask02 */

@@ -23,7 +23,7 @@ uint16_t c_flag;
 uint16_t v_flag;
 uint16_t b_flag;
 
-static float increment=0.05;
+static float increment=0.5;
 extern float Max_pos1_Can1;
 extern float Min_pos1_Can1;
 extern float Max_pos1_Can2;
@@ -66,6 +66,11 @@ void USART3_rxDataHandler(uint8_t *rxBuf)
     rc_ctrl.rc.ch[2]-=RC_CH_VALUE_OFFSET;
     rc_ctrl.rc.ch[3]-=RC_CH_VALUE_OFFSET;
     rc_ctrl.rc.ch[4]-=RC_CH_VALUE_OFFSET;
+	
+		if(Current_pos1_Can1<=Max_pos1_Can1-increment&&Current_pos1_Can1>=Min_pos1_Can1+increment)
+		{
+			Target_pos1_Can1=Current_pos1_Can1+((float)rc_ctrl.rc.ch[0]/660)*0.5;
+		}
 
     HAL_UART_Transmit_DMA(&huart1,rxBuf,18);  //发送给另一块C板（原始数据）
 
@@ -80,7 +85,7 @@ void USART3_rxDataHandler(uint8_t *rxBuf)
 		ctrl_flag=(rxBuf[14]&0x20);
 		press_left=rc_ctrl.mouse.press_l;
 		press_right=rc_ctrl.mouse.press_r;
-  // HAL_GPIO_TogglePin( GPIOH, GPIO_PIN_11);
+		HAL_GPIO_TogglePin( GPIOH, GPIO_PIN_11);
 		r_flag = rc_ctrl.key.v & (0x00 | 0x01 << 8);
 		f_flag = rc_ctrl.key.v & (0x00 | 0x02 << 8);
 		g_flag = rc_ctrl.key.v & (0x00 | 0x04 << 8);
