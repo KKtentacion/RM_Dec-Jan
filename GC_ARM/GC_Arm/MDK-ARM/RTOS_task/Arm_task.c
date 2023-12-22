@@ -11,22 +11,12 @@ extern Motor_t MOTOR3_can1;
 extern Motor_t MOTOR1_can2;
 extern Motor_t MOTOR2_can2;
 extern Motor_t MOTOR3_can2;
-extern float Max_pos1_Can1;
-extern float Min_pos1_Can1;
-extern float Max_pos1_Can2;
-extern float Min_pos1_Can2;
-extern float Max_pos2_Can2;
-extern float Min_pos2_Can2;
-extern float Max_pos3_Can2;
-extern float Min_pos3_Can2;
-extern float Current_pos1_Can1;
+
 extern float Target_pos1_Can1;
-extern float Current_pos1_Can2;
 extern float Target_pos1_Can2;
-extern float Current_pos2_Can2;
 extern float Target_pos2_Can2;
-extern float Current_pos3_Can2;
 extern float Target_pos3_Can2;
+
 static void DM_Enable(); //达妙电机使能
 static void DM_Init();   //达妙电机初始化到初始位置
 void StartTask02(void const * argument)
@@ -39,7 +29,10 @@ void StartTask02(void const * argument)
 //  DM_Init();
   for(;;)
   {
-		MIT_CtrlMotor(0x01,Target_pos1_Can1,0.2,1,0.5,1);
+//		MIT_CtrlMotor(0x01,Target_pos1_Can1,0.2,10,0.5,1);
+//		MIT_CtrlMotor2(0x01,Target_pos1_Can2,0.2,10,0.5,1);
+//		MIT_CtrlMotor2(0x02,Target_pos2_Can2,0.2,10,0.5,1);
+//		MIT_CtrlMotor2(0x03,Target_pos3_Can2,0.2,10,0.5,1);
     osDelay(1);
   }
   /* USER CODE END StartTask02 */

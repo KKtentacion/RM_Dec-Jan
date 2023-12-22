@@ -12,23 +12,26 @@ Motor_t MOTOR3_can1;
 Motor_t MOTOR1_can2;
 Motor_t MOTOR2_can2;
 Motor_t MOTOR3_can2;
-int initflag=0;
+
+int initflag1_Can1=0;
+int initflag1_Can2=0;
+int initflag2_Can2=0;
+int initflag3_Can2=0;
+
 float Max_pos1_Can1=-0.79;
 float Min_pos1_Can1=-2.9;
 float Max_pos1_Can2=0;
-float Min_pos1_Can2=0;
+float Min_pos1_Can2=3.14;
 float Max_pos2_Can2=0;
 float Min_pos2_Can2=0;
-float Max_pos3_Can2=0;
-float Min_pos3_Can2=0;
-float Current_pos1_Can1;
+float Max_pos3_Can2=3.6;
+float Min_pos3_Can2=-3.5;
+
 float Target_pos1_Can1;
-float Current_pos1_Can2;
 float Target_pos1_Can2;
-float Current_pos2_Can2;
 float Target_pos2_Can2;
-float Current_pos3_Can2;
 float Target_pos3_Can2;
+
 float uint_to_float(int x_int, float x_min, float x_max, int bits);
 void CAN1_Init(void)
 {
@@ -85,13 +88,13 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
               MOTOR1_can1.v_int=(packet.payload[3]<<4)|(packet.payload[4]>>4);
               MOTOR1_can1.t_int=((packet.payload[4]&0xF)<<8)|packet.payload[5];
               MOTOR1_can1.position = uint_to_float(MOTOR1_can1.p_int, P_MIN, P_MAX, 16); 
-							Current_pos1_Can1=MOTOR1_can1.position;
 //              MOTOR1_t.velocity = uint_to_float(MOTOR1_t.v_int, V_MIN, V_MAX, 12);
 //              MOTOR1_t.torque = uint_to_float(MOTOR1_t.t_int, T_MIN, T_MAX, 12); 
 						 
-						 if(initflag==0)
+						 if(initflag1_Can1==0)
 						 {
-							Target_pos1_Can1=Current_pos1_Can1;
+							Target_pos1_Can1=MOTOR1_can1.position;
+							initflag1_Can1=1;
 						 }
 						 
             }else if(packet.payload[0] == 0x02){  //接收MOTOR2数据
@@ -126,6 +129,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
 //              MOTOR1_t.position = uint_to_float(MOTOR1_t.p_int, P_MIN, P_MAX, 16); 
 //              MOTOR1_t.velocity = uint_to_float(MOTOR1_t.v_int, V_MIN, V_MAX, 12);
 //              MOTOR1_t.torque = uint_to_float(MOTOR1_t.t_int, T_MIN, T_MAX, 12); 
+						 if(initflag1_Can2==0)
+						 {
+							Target_pos1_Can2=MOTOR1_can2.position;
+							initflag1_Can2=1;
+						 }
             }else if(packet.payload[0] == 0x02){  //接收MOTOR2数据
 							MOTOR2_can2.p_int=(packet.payload[1]<<8)|packet.payload[2];
               MOTOR2_can2.v_int=(packet.payload[3]<<4)|(packet.payload[4]>>4);
@@ -134,6 +142,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
 //              MOTOR2_t.position = uint_to_float(MOTOR2_t.p_int, P_MIN, P_MAX, 16); 
 //              MOTOR2_t.velocity = uint_to_float(MOTOR2_t.v_int, V_MIN, V_MAX, 12); 
 //              MOTOR2_t.torque = uint_to_float(MOTOR2_t.t_int, T_MIN, T_MAX, 12);
+						 if(initflag2_Can2==0)
+						 {
+							Target_pos2_Can2=MOTOR2_can2.position;
+							initflag2_Can2=1;
+						 }
             }else if(packet.payload[0] == 0x03){   //接收MOTOR3数据
 							MOTOR3_can2.p_int=(packet.payload[1]<<8)|packet.payload[2];
               MOTOR3_can2.v_int=(packet.payload[3]<<4)|(packet.payload[4]>>4);
@@ -142,6 +155,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
 //              MOTOR3_t.position = uint_to_float(MOTOR3_t.p_int, P_MIN, P_MAX, 16); 
 //              MOTOR3_t.velocity = uint_to_float(MOTOR3_t.v_int, V_MIN, V_MAX, 12); 
 //              MOTOR3_t.torque = uint_to_float(MOTOR3_t.position, T_MIN, T_MAX, 12); 
+						 if(initflag3_Can2==0)
+						 {
+							Target_pos3_Can2=MOTOR3_can2.position;
+							initflag3_Can2=1;
+						 }
             }
             HAL_CAN_ActivateNotification(canHandle, CAN_IT_RX_FIFO0_MSG_PENDING);						// 再次使能FIFO0接收中断
         }

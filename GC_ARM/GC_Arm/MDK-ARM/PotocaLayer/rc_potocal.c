@@ -23,7 +23,8 @@ uint16_t c_flag;
 uint16_t v_flag;
 uint16_t b_flag;
 
-static float increment=0.5;
+static float increment=0.005;
+
 extern float Max_pos1_Can1;
 extern float Min_pos1_Can1;
 extern float Max_pos1_Can2;
@@ -32,13 +33,10 @@ extern float Max_pos2_Can2;
 extern float Min_pos2_Can2;
 extern float Max_pos3_Can2;
 extern float Min_pos3_Can2;
-extern float Current_pos1_Can1;
+
 extern float Target_pos1_Can1;
-extern float Current_pos1_Can2;
 extern float Target_pos1_Can2;
-extern float Current_pos2_Can2;
 extern float Target_pos2_Can2;
-extern float Current_pos3_Can2;
 extern float Target_pos3_Can2;
 
 uint8_t temp_remote[8];
@@ -66,12 +64,12 @@ void USART3_rxDataHandler(uint8_t *rxBuf)
     rc_ctrl.rc.ch[2]-=RC_CH_VALUE_OFFSET;
     rc_ctrl.rc.ch[3]-=RC_CH_VALUE_OFFSET;
     rc_ctrl.rc.ch[4]-=RC_CH_VALUE_OFFSET;
-	
-		if(Current_pos1_Can1<=Max_pos1_Can1-increment&&Current_pos1_Can1>=Min_pos1_Can1+increment)
-		{
-			Target_pos1_Can1=Current_pos1_Can1+((float)rc_ctrl.rc.ch[0]/660)*0.5;
-		}
-
+			
+		//Test Code
+		Target_pos1_Can1=Target_pos1_Can1+((float)rc_ctrl.rc.ch[0]/660)*0.005;
+		Target_pos1_Can1=Target_pos1_Can1>Max_pos1_Can1?Max_pos1_Can1:Target_pos1_Can1;
+		Target_pos1_Can1=Target_pos1_Can1<Min_pos1_Can1?Min_pos1_Can1:Target_pos1_Can1;
+		
     HAL_UART_Transmit_DMA(&huart1,rxBuf,18);  //发送给另一块C板（原始数据）
 
 //Some flag of keyboard
@@ -95,19 +93,49 @@ void USART3_rxDataHandler(uint8_t *rxBuf)
 		v_flag = rc_ctrl.key.v & (0x00 | 0x40 << 8);
 		b_flag = rc_ctrl.key.v & (0x00 | 0x80 << 8);
 		
-		if(q_flag==1)
+		if(q_flag!=0)
 		{
-			if(Current_pos1_Can1<=Max_pos1_Can1-increment&&Current_pos1_Can1>=Min_pos1_Can1+increment)
-			{
-				Target_pos1_Can1+=increment;
-			}
+			Target_pos1_Can1=Target_pos1_Can1+increment;
 		}
-		else if(a_flag==1)
+		else if(a_flag!=0)
 		{
-			if(Current_pos1_Can1<=Max_pos1_Can1-increment&&Current_pos1_Can1>=Min_pos1_Can1+increment)
-			{
-				Target_pos1_Can1+=increment;
-			}
+			Target_pos1_Can1=Target_pos1_Can1-increment;
 		}
+		Target_pos1_Can1=Target_pos1_Can1>Max_pos1_Can1?Max_pos1_Can1:Target_pos1_Can1;
+		Target_pos1_Can1=Target_pos1_Can1<Min_pos1_Can1?Min_pos1_Can1:Target_pos1_Can1;
+		
+		if(w_flag!=0)
+		{
+			Target_pos1_Can2=Target_pos1_Can2+increment;
+		}
+		else if(s_flag!=0)
+		{
+			Target_pos1_Can2=Target_pos1_Can2-increment;
+		}
+		Target_pos1_Can2=Target_pos1_Can2>Max_pos1_Can2?Max_pos1_Can2:Target_pos1_Can2;
+		Target_pos1_Can2=Target_pos1_Can2<Min_pos1_Can2?Min_pos1_Can2:Target_pos1_Can2;
+		
+		if(e_flag!=0)
+		{
+			Target_pos2_Can2=Target_pos2_Can2+increment;
+		}
+		else if(d_flag!=0)
+		{
+			Target_pos2_Can2=Target_pos2_Can2-increment;
+		}
+		Target_pos2_Can2=Target_pos2_Can2>Max_pos2_Can2?Max_pos2_Can2:Target_pos2_Can2;
+		Target_pos2_Can2=Target_pos2_Can2<Min_pos2_Can2?Min_pos2_Can2:Target_pos2_Can2;
+		
+		if(r_flag!=0)
+		{
+			Target_pos3_Can2=Target_pos3_Can2+increment;
+		}
+		else if(f_flag!=0)
+		{
+			Target_pos3_Can2=Target_pos3_Can2-increment;
+		}
+		Target_pos3_Can2=Target_pos3_Can2>Max_pos3_Can2?Max_pos3_Can2:Target_pos3_Can2;
+		Target_pos3_Can2=Target_pos3_Can2<Min_pos3_Can2?Min_pos3_Can2:Target_pos3_Can2;
+		
 }
 

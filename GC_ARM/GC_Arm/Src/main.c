@@ -120,10 +120,12 @@ int main(void)
   MX_TIM1_Init();
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
+	HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);//修改TIM2中断优先级
   CAN1_Init();
   CAN2_Init();
   USART6_Init();
 	USART3_Init();
+	HAL_TIM_Base_Start_IT(&htim1);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
