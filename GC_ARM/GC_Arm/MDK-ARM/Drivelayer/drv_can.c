@@ -20,12 +20,12 @@ int initflag3_Can2=0;
 
 float Max_pos1_Can1=-0.79;
 float Min_pos1_Can1=-2.9;
-float Max_pos1_Can2=0;
-float Min_pos1_Can2=3.14;
+float Max_pos1_Can2=3.14;
+float Min_pos1_Can2=1.51;
 float Max_pos2_Can2=0;
 float Min_pos2_Can2=0;
-float Max_pos3_Can2=3.6;
-float Min_pos3_Can2=-3.5;
+float Max_pos3_Can2=1.1;
+float Min_pos3_Can2=-0.9;
 
 float Target_pos1_Can1;
 float Target_pos1_Can2;

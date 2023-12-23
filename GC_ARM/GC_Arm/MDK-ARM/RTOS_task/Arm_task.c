@@ -29,10 +29,10 @@ void StartTask02(void const * argument)
 //  DM_Init();
   for(;;)
   {
-//		MIT_CtrlMotor(0x01,Target_pos1_Can1,0.2,10,0.5,1);
-//		MIT_CtrlMotor2(0x01,Target_pos1_Can2,0.2,10,0.5,1);
+		MIT_CtrlMotor(0x01,Target_pos1_Can1,0.2,10,0.5,1);
+		MIT_CtrlMotor2(0x01,Target_pos1_Can2,0.2,10,0.5,1);
 //		MIT_CtrlMotor2(0x02,Target_pos2_Can2,0.2,10,0.5,1);
-//		MIT_CtrlMotor2(0x03,Target_pos3_Can2,0.2,10,0.5,1);
+		MIT_CtrlMotor2(0x03,Target_pos3_Can2,0.2,10,0.5,1);
     osDelay(1);
   }
   /* USER CODE END StartTask02 */
