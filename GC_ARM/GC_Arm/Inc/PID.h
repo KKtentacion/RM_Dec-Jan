@@ -40,5 +40,8 @@ int float_to_uint(float x, float x_min, float x_max, int bits);
 void MIT_CtrlMotor(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq);
 void Enable_Ctrl2(uint16_t ID, uint8_t data0, uint8_t data1,uint8_t data2, uint8_t data3, uint8_t data4,uint8_t data5,uint8_t data6,uint8_t data7);
 void MIT_CtrlMotor2(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq);
+void MY_MIT_CtrlMotor2(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq);
+void MY_MIT_CtrlMotor(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq);
+float Abs(float num);
 #endif
 							

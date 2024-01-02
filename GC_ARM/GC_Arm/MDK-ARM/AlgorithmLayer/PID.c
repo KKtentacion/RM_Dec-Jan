@@ -2,6 +2,13 @@
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 
+extern Motor_t MOTOR1_can1;
+extern Motor_t MOTOR2_can1;
+extern Motor_t MOTOR3_can1;
+extern Motor_t MOTOR1_can2;
+extern Motor_t MOTOR2_can2;
+extern Motor_t MOTOR3_can2;
+
 void pid_init(pid_struct_t *pid,
               float kp,
               float ki,
@@ -284,6 +291,76 @@ void MIT_CtrlMotor2(uint16_t ID, float _pos, float _vel,float _KP, float _KD, fl
 			HAL_CAN_AddTxMessage(&hcan2, &packet.hdr, packet.payload, (uint32_t*)CAN_TX_MAILBOX2);
     }
     }
+}
+
+//Add Integral calculate
+void MY_MIT_CtrlMotor(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq)
+{
+	switch (ID)
+	{
+		case 1:
+		{
+			while(Abs(MOTOR1_can1.position-_pos)<=0.005)
+			{
+				MIT_CtrlMotor(ID,_pos,_vel,_KP,_KD,_torq);
+				_pos=_pos+0.05;
+			}
+		}
+		case 2:
+		{
+			while(Abs(MOTOR2_can1.position-_pos)<=0.005)
+			{
+				MIT_CtrlMotor(ID,_pos,_vel,_KP,_KD,_torq);
+				_pos=_pos+0.05;
+			}
+		}
+		case 3:
+		{
+			while(Abs(MOTOR3_can1.position-_pos)<=0.005)
+			{
+				MIT_CtrlMotor(ID,_pos,_vel,_KP,_KD,_torq);
+				_pos=_pos+0.05;
+			}
+		}
+		break;
+	}	
+}
+
+void MY_MIT_CtrlMotor2(uint16_t ID, float _pos, float _vel,float _KP, float _KD, float _torq)
+{
+	switch (ID)
+	{
+		case 1:
+		{
+			while(Abs(MOTOR1_can2.position-_pos)<=0.005)
+			{
+				MIT_CtrlMotor2(ID,_pos,_vel,_KP,_KD,_torq);
+				_pos=_pos+0.05;
+			}
+		}
+		case 2:
+		{
+			while(Abs(MOTOR2_can2.position-_pos)<=0.005)
+			{
+				MIT_CtrlMotor2(ID,_pos,_vel,_KP,_KD,_torq);
+				_pos=_pos+0.05;
+			}
+		}
+		case 3:
+		{
+			while(Abs(MOTOR3_can2.position-_pos)<=0.005)
+			{
+				MIT_CtrlMotor2(ID,_pos,_vel,_KP,_KD,_torq);
+				_pos=_pos+0.05;
+			}
+		}
+		break;
+	}	
+}
+
+float Abs(float num)
+{
+	return num>=0?num:-num;
 }
 
 int float_to_uint(float x, float x_min, float x_max, int bits)
